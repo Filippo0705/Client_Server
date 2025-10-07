@@ -6,19 +6,28 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws UnknownHostException, IOException {
         
         Socket s = new Socket("localhost", 3000);
         System.out.println("Connected.");
+        Scanner sc= new Scanner(System.in);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-
-        out.println("hello world");
-
-        String result = in.readLine();
-        System.out.println("Received: " + result);
+        String frase;
+        do{
+            
+            System.out.println("inserisci frase: ");
+             frase = sc.nextLine();
+             if(frase.equalsIgnoreCase("exit")){
+                out.println("!");
+                break;
+             } else
+             out.println(frase);
+             System.out.println(in.readLine());
+        }while(true);
     }
 }
